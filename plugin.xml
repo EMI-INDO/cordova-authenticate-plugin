@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-authenticate-plugin" version="0.0.1"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>AuthenticateCordovaPlugin</name>
+    <js-module name="AuthenticateCordovaPlugin" src="www/AuthenticateCordovaPlugin.js">
+        <clobbers target="cordova.plugins.AuthenticateCordovaPlugin" />
+    </js-module>
+    <hook type="before_plugin_install" src="hooks/before_plugin_install.js" />
+    <platform name="ios">
+    <config-file parent="/*" target="config.xml">
+		<preference name="deployment-target" value="13.0" />
+		<preference name="SwiftVersion" value="5.10" />
+	</config-file>
+    <preference name="IOS_FIREBASE_POD_VERSION" default="11.5.0" />
+        <config-file parent="/*" target="config.xml">
+            <feature name="AuthenticateCordovaPlugin">
+                <param name="ios-package" value="AuthenticateCordovaPlugin" />
+            </feature>
+        </config-file>
+        <source-file src="src/ios/AuthenticateCordovaPlugin.h" />
+        <source-file src="src/ios/AuthenticateCordovaPlugin.m" />
+        <podspec>
+            <config>
+                <source url="https://cdn.cocoapods.org/"/>
+            </config>
+            <pods use-frameworks="true">
+                <pod name="Firebase/Auth" spec="$IOS_FIREBASE_POD_VERSION" />
+            </pods>
+        </podspec>
+    </platform>
+</plugin>
